@@ -39,10 +39,15 @@ void Loar::do_repl()
     prompt_flag = true;
   }    
 
-  if(stream->available() > 0) {
+  while(stream->available() > 0) {
+    if(idx >= sizeof(buffer) - 2) {
+        while(stream->available()) stream->read();
+        stream->println("Error: input buffer overflow");
+        idx = 0;
+        break;
+    }
     int c = stream->read();
     stream->print((char)c);
-    #warning TODO: add buffer capacity check
     if(c != '\n') buffer[idx++] = c; 
     else {
       buffer[idx] = 0;
