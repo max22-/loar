@@ -38,6 +38,12 @@ static int lua_delay(lua_State *L)
     return 0;
 }
 
+static int lua_millis(lua_State *L)
+{
+  lua_pushinteger(L, millis());
+  return 1;
+}
+
 void register_arduino_base(Loar& loar)
 {
   lua_State *L = loar.get_state();
@@ -60,5 +66,8 @@ void register_arduino_base(Loar& loar)
 
   lua_pushcfunction(L, lua_delay);
   lua_setglobal(L, "delay");
+
+  lua_pushcfunction(L, lua_millis);
+  lua_setglobal(L, "millis");
 
 }
