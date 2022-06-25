@@ -1,6 +1,5 @@
 #include "loar.h"
 #include <lua.hpp>
-#include <Arduino.h>
 #include "arduino_base.h"
 
 Loar::Loar()
@@ -51,7 +50,8 @@ void Loar::do_repl()
       buffer[idx] = 0;
       luaL_loadbuffer(L, buffer, strlen(buffer), "repl");
       if(lua_pcall(L, 0, 0, 0) != 0) {
-        stream->printf("error: %s\n", lua_tostring(L, -1));
+        stream->print("error: ");
+        stream->println(lua_tostring(L, -1));
         lua_pop(L, 1);
       }
       idx=0;
@@ -72,6 +72,6 @@ void Loar::prompt()
 {
   if(stream == nullptr)
     return;
-  stream->printf("> ");
+  stream->print("> ");
   stream->flush();
 }

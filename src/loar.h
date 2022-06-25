@@ -1,8 +1,9 @@
 #ifndef LOAR_H
 #define LOAR_H
 
+#include <Arduino.h>
+
 struct lua_State;
-class Stream;
 
 class Loar {
 public:
