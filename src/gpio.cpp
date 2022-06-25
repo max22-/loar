@@ -58,6 +58,7 @@ void register_gpio(Loar& loar)
   lua_pushcfunction(L, lua_analogRead);
   lua_setglobal(L, "analogRead");
 
+  #warning delay is not a GPIO function... put it elsewhere or rename the file
   lua_pushcfunction(L, lua_delay);
   lua_setglobal(L, "delay");
 
