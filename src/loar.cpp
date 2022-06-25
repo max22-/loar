@@ -28,7 +28,7 @@ lua_State *Loar::get_state()
 void Loar::do_repl()
 {
   static char buffer[512] = {0};
-  static int idx = 0;
+  static unsigned int idx = 0;
   static bool prompt_flag = false;
   if(stream == nullptr)
     return;
