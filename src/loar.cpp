@@ -3,8 +3,6 @@
 #include <Arduino.h>
 #include "arduino_base.h"
 
-static int test(lua_State *);
-
 Loar::Loar()
 {
   L = luaL_newstate();
