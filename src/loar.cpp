@@ -1,7 +1,7 @@
 #include "loar.h"
 #include <lua.hpp>
 #include <Arduino.h>
-#include "gpio.h"
+#include "arduino_base.h"
 
 static int test(lua_State *);
 
@@ -9,7 +9,7 @@ Loar::Loar()
 {
   L = luaL_newstate();
   luaL_openlibs(L);
-  register_gpio(*this);
+  register_arduino_base(*this);
 }
 
 Loar::Loar(Stream *stream) : Loar()

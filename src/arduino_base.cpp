@@ -38,7 +38,7 @@ static int lua_delay(lua_State *L)
     return 0;
 }
 
-void register_gpio(Loar& loar)
+void register_arduino_base(Loar& loar)
 {
   lua_State *L = loar.get_state();
 
@@ -58,7 +58,6 @@ void register_gpio(Loar& loar)
   lua_pushcfunction(L, lua_analogRead);
   lua_setglobal(L, "analogRead");
 
-  #warning delay is not a GPIO function... put it elsewhere or rename the file
   lua_pushcfunction(L, lua_delay);
   lua_setglobal(L, "delay");
 
