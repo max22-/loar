@@ -49,7 +49,9 @@ void Loar::do_repl()
     else {
       buffer[idx] = 0;
       luaL_loadbuffer(L, buffer, strlen(buffer), "repl");
-      if(lua_pcall(L, 0, 0, 0) != 0) {
+      if(lua_pcall(L, 0, LUA_MULTRET, 0) == LUA_OK)
+        l_print();
+      else {
         stream->print("error: ");
         stream->println(lua_tostring(L, -1));
         lua_pop(L, 1);
@@ -74,4 +76,23 @@ void Loar::prompt()
     return;
   stream->print("> ");
   stream->flush();
+}
+
+/*
+** Prints (calling the Lua 'print' function) any values on the stack
+** (Copied from lua.c, and adapted)
+*/
+void Loar::l_print()
+{
+  int n = lua_gettop(L);
+  if (n > 0) {  /* any result to be printed? */
+    luaL_checkstack(L, LUA_MINSTACK, "too many results to print");
+    lua_getglobal(L, "print");
+    lua_insert(L, 1);
+    if (lua_pcall(L, n, 0, 0) != LUA_OK) {
+      stream->print("error calling 'print' (");
+      stream->print(lua_tostring(L, -1));
+      stream->println(")");
+    }
+  }
 }

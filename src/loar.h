@@ -19,6 +19,7 @@ private:
     Loar(const Loar&) = delete;
     Loar& operator=(const Loar&) = delete;
     void prompt();
+    void l_print();
     struct lua_State *L = nullptr;
     Stream *stream = nullptr;
 };
