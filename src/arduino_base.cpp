@@ -8,6 +8,35 @@
     lua_setglobal(L, #c); \
   } while (0)
 
+static int lua_serial_print(lua_State *L)
+{
+  int nargs = lua_gettop(L);
+  for(int i = 1; i <= nargs; i++) {
+    if(lua_isstring(L, i))
+      Serial.print(lua_tostring(L, i));
+    else {
+      int type = lua_type(L, i);
+      switch(type) {
+        case LUA_TBOOLEAN:
+          Serial.print(lua_toboolean(L, i) ? "true": "false");
+          break;
+        case LUA_TNUMBER:
+          if(lua_isinteger(L, i))
+            Serial.print(lua_tointeger(L, i));
+          else
+            Serial.print(lua_tonumber(L, i));
+          break;
+        default:
+          Serial.print(lua_typename(L, lua_type(L, i)));
+          break;
+      }
+    }
+    if(i != nargs) Serial.print('\t');
+  }
+  Serial.println();
+  return 0;
+}
+
 static int lua_pinMode(lua_State *L)
 {
   uint8_t pin = luaL_checknumber(L, 1);
@@ -47,6 +76,9 @@ static int lua_millis(lua_State *L)
 void register_arduino_base(Loar& loar)
 {
   lua_State *L = loar.get_state();
+
+  lua_pushcfunction(L, lua_serial_print);
+  lua_setglobal(L, "print");
 
   lua_pushcfunction(L, lua_pinMode);
   lua_setglobal(L, "pinMode");
