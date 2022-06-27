@@ -54,8 +54,8 @@ void Loar::do_repl()
       else {
         stream->print("error: ");
         stream->println(lua_tostring(L, -1));
-        lua_pop(L, 1);
       }
+      lua_settop(L, 0);
       idx=0;
       prompt();
     }
