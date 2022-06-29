@@ -27,6 +27,6 @@
             "name": "01-Basic-Midi-Device",
             "base": "examples/01-Basic_REPL",
             "files": ["01-Basic_REPL.ino"]
-        },
+        }
     ]
   }
