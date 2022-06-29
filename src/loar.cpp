@@ -1,11 +1,13 @@
 #include "loar.h"
 #include "arduino_base.h"
+#include "boards/boards.h"
 
 Loar::Loar()
 {
   L = luaL_newstate();
   luaL_openlibs(L);
   register_arduino_base(*this);
+  luaopen_board(L); // Registers board specific libraries
 }
 
 Loar::Loar(Stream *stream) : Loar()
