@@ -106,32 +106,15 @@ void register_arduino_base(Loar& loar)
 {
   lua_State *L = loar.get_state();
 
-  lua_pushcfunction(L, lua_serial_print);
-  lua_setglobal(L, "print");
-
-  lua_pushcfunction(L, lua_digitalRead);
-  lua_setglobal(L, "digitalRead");
-
-  lua_pushcfunction(L, lua_digitalWrite);
-  lua_setglobal(L, "digitalWrite");
-
-  lua_pushcfunction(L, lua_pinMode);
-  lua_setglobal(L, "pinMode");
-
-  lua_pushcfunction(L, lua_analogRead);
-  lua_setglobal(L, "analogRead");
-
-  lua_pushcfunction(L, lua_shiftOut);
-  lua_setglobal(L, "shiftOut");
-
-  lua_pushcfunction(L, lua_delay);
-  lua_setglobal(L, "delay");
-
-  lua_pushcfunction(L, lua_millis);
-  lua_setglobal(L, "millis");
-
-  lua_pushcfunction(L, lua_micros);
-  lua_setglobal(L, "micros");
+  lua_register(L, "print", lua_serial_print);
+  lua_register(L, "digitalRead", lua_digitalRead);
+  lua_register(L, "digitalWrite", lua_digitalWrite);
+  lua_register(L, "pinMode", lua_pinMode);
+  lua_register(L, "analogRead", lua_analogRead);
+  lua_register(L, "shiftOut", lua_shiftOut);
+  lua_register(L, "delay", lua_delay);
+  lua_register(L, "millis", lua_millis);
+  lua_register(L, "micros", lua_micros);
 
   LUA_REGISTER_CONSTANT(INPUT);
   LUA_REGISTER_CONSTANT(OUTPUT);
