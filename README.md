@@ -22,7 +22,7 @@ void loop() {
 
 # Compatible boards
 - ESP32 Dev Module
-- Raspberry Pi Pi
+- Raspberry Pi Pico
 - Others, but not tested yet.
 
 # Why "Loar" ?
