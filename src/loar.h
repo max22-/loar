@@ -2,6 +2,8 @@
 #define LOAR_H
 
 #include <Arduino.h>
+#define LUA_32BITS
+#include "lua/lua.hpp"
 
 struct lua_State;
 

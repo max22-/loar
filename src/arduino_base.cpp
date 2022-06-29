@@ -1,5 +1,4 @@
 #include <Arduino.h>
-#include <lua.hpp>
 #include "loar.h"
 
 #define LUA_REGISTER_CONSTANT(c) \
@@ -71,14 +70,16 @@ static int lua_shiftOut(lua_State *L)
 {
   uint8_t 
     data_pin = luaL_checkinteger(L, 1),
-    clock_pin = luaL_checkinteger(L, 2);
-#ifdef ARDUINO_RASPERRYPI_PICO
-  BitOrder bit_order = luaL_checkinteger(L, 3);
-#else
-  uint8_t bit_order = luaL_checkinteger(L, 3);
-#endif
-  uint8_t value = luaL_checkinteger(L, 4);
+    clock_pin = luaL_checkinteger(L, 2),
+    bit_order = luaL_checkinteger(L, 3),
+    value = luaL_checkinteger(L, 4);
+#ifdef ARDUINO_ARCH_RP2040
   shiftOut(data_pin, clock_pin, (BitOrder)bit_order, value);
+#else
+  shiftOut(data_pin, clock_pin, bit_order, value);
+#endif
+
+  
   return 0;
 } 
 

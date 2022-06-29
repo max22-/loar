@@ -1,5 +1,4 @@
 #include "loar.h"
-#include <lua.hpp>
 #include "arduino_base.h"
 
 Loar::Loar()
