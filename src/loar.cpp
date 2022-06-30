@@ -1,6 +1,7 @@
 #include "loar.h"
 #include "arduino_base.h"
 #include "boards/boards.h"
+#include "libraries/loar_libraries.h"
 
 Loar::Loar()
 {
@@ -8,6 +9,7 @@ Loar::Loar()
   luaL_openlibs(L);
   register_arduino_base(*this);
   luaopen_board(L); // Registers board specific libraries
+  luaopen_loar_libraries(L);
 }
 
 Loar::Loar(Stream *stream) : Loar()
