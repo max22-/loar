@@ -1,12 +1,6 @@
 #include <Arduino.h>
 #include "loar.h"
 
-#define LUA_REGISTER_CONSTANT(c) \
-  do { \
-    lua_pushinteger(L, c); \
-    lua_setglobal(L, #c); \
-  } while (0)
-
 static int lua_serial_print(lua_State *L)
 {
   int nargs = lua_gettop(L);

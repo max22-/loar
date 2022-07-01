@@ -25,4 +25,10 @@ private:
     Stream *stream = nullptr;
 };
 
+#define LUA_REGISTER_CONSTANT(c) \
+  do { \
+    lua_pushinteger(L, c); \
+    lua_setglobal(L, #c); \
+  } while (0)
+
 #endif
