@@ -9,8 +9,16 @@ static int restart(lua_State *L)
     return 0;
 }
 
+static int deepSleep(lua_State *L)
+{
+    uint32_t t = luaL_checkinteger(L, 1);
+    ESP.deepSleep(t);
+    return 0;
+}
+
 static const struct luaL_Reg esp_lib[] = {
     {"restart", restart},
+    {"deepSleep", deepSleep},
     {NULL, NULL}
 };
 
