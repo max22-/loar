@@ -5,6 +5,7 @@
 #include "TFT_eSPI/loar_tft_espi.h"
 #include "MQTT/loar_mqtt.h"
 #include "Serial/loar_serial.h"
+#include "SPI/loar_spi.h"
 
 int luaopen_loar_libraries(lua_State *L) {
 
@@ -30,6 +31,11 @@ int luaopen_loar_libraries(lua_State *L) {
 
     luaL_requiref(L, "Serial", luaopen_serial, 1);
     lua_pop(L, 1);
+
+    #ifdef LOAR_USE_SPI
+    luaL_requiref(L, "spi", luaopen_spi, 1);
+    lua_pop(L, 1);
+    #endif
 
     
     return 1;
