@@ -30,7 +30,7 @@ lua_State *Loar::get_state()
 void Loar::do_repl()
 {
   static char buffer[512] = {0};
-  static unsigned int idx = 0;
+  static int idx = 0;
   static bool prompt_flag = false;
   if(stream == nullptr)
     return;
@@ -48,8 +48,8 @@ void Loar::do_repl()
     }
     int c = stream->read();
     stream->print((char)c);
-    if(c != '\n') buffer[idx++] = c; 
-    else {
+    if(c == '\b') idx = idx > 0 ? idx - 1 : 0;
+    else if(c == '\n') {
       buffer[idx] = 0;
       luaL_loadbuffer(L, buffer, strlen(buffer), "repl");
       if(lua_pcall(L, 0, LUA_MULTRET, 0) == LUA_OK)
@@ -62,6 +62,7 @@ void Loar::do_repl()
       idx=0;
       prompt();
     }
+    else buffer[idx++] = c;
   }
 }
 
