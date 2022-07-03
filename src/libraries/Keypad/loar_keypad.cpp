@@ -3,8 +3,6 @@
 #include "lua/lua.hpp"
 #include <Keypad.h>
 
-#warning remove
-#include <Arduino.h>
 #include "loar_user_setup.h"
 
 static Keypad *keypad = nullptr;
