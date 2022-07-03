@@ -1,6 +1,7 @@
 #ifdef ARDUINO_ARCH_ESP32
 
 #include <Arduino.h>
+#include <time.h>
 #include "lua/lua.hpp"
 #include "loar.h"
 
@@ -23,10 +24,20 @@ static int wakeupCause(lua_State *L)
     return 1;
 }
 
+static int configTime(lua_State *L)
+{
+    long gmtOffset_sec = luaL_checkinteger(L, 1);
+    int daylightOffset_sec = luaL_checkinteger(L, 2);
+    const char *server = luaL_checkstring(L, 3);
+    configTime(gmtOffset_sec, daylightOffset_sec, server);
+    return 0;
+}
+
 static const struct luaL_Reg esp_lib[] = {
     {"restart", restart},
     {"deepSleep", deepSleep},
     {"wakeupCause", wakeupCause},
+    {"configTime", configTime},
     {NULL, NULL}
 };
 
