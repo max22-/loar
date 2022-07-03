@@ -58,6 +58,15 @@ static const struct luaL_Reg spi_lib[] = {
 int luaopen_spi(lua_State *L)
 {
     luaL_newlib(L, spi_lib);
+
+    LUA_REGISTER_CONSTANT(LSBFIRST);
+    LUA_REGISTER_CONSTANT(MSBFIRST);
+
+    LUA_REGISTER_CONSTANT(SPI_MODE0);
+    LUA_REGISTER_CONSTANT(SPI_MODE1);
+    LUA_REGISTER_CONSTANT(SPI_MODE2);
+    LUA_REGISTER_CONSTANT(SPI_MODE3);
+    
     return 1;
 }
 
