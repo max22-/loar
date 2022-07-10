@@ -66,6 +66,11 @@ void Loar::do_repl()
   }
 }
 
+void Loar::dofile(const char* path)
+{
+  luaL_dofile(L, path);
+}
+
 void Loar::set_stream(Stream* stream)
 {
     this->stream = stream;

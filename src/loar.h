@@ -14,6 +14,7 @@ public:
     lua_State *get_state();
     void register_function(const char *name, int (*f)(struct lua_State*));
     void do_repl();
+    void dofile(const char*);
     void set_stream(Stream*);
 
 private:
